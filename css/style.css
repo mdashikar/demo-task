@@ -28,7 +28,7 @@ visibility: visible;
 }
 
 /* ============================= header ====================== */
-.top1_wrapper{padding-left: 5%; padding-right: 2%; background: #fff; border-bottom: 5px solid #f2c40e;}
+.top1_wrapper{padding-left: 5%; padding-right: 2%; background:black; border-bottom: 5px solid #f2c40e;}
 .top1{position: relative;}
 
 header{position: absolute; left: 0; top: 50%; margin-top: -29px; z-index: 30;}
@@ -176,14 +176,14 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 
 /* ============================= footer ====================== */
-.bot1_wrapper{background: #fff; padding: 60px 0;}
+.bot1_wrapper{background:black; padding: 60px 0;}
 .logo2_wrapper{padding-top: 20px;}
-.bot1_title{padding-top: 20px; font-size: 20px; color: #191509; font-weight: 700; padding-bottom: 20px;}
+.bot1_title{padding-top: 20px; font-size: 20px; color:whitesmoke; font-weight: 700; padding-bottom: 20px;}
 
 .ul1{padding: 0; margin: 0; list-style: none;}
 .ul1 li{padding-bottom: 5px;}
-.ul1 li a{text-decoration: none; color: #443f2e;}
-.ul1 li a:hover{text-decoration: underline; color: #000;}
+.ul1 li a{text-decoration: none; color:whitesmoke;}
+.ul1 li a:hover{text-decoration: underline; color:#f1c40f;}
 
 .social_wrapper{}
 .social{ display: block; margin: 0; padding: 0; list-style: none;}
@@ -258,7 +258,7 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 .navbar_ .nav{position: relative; margin: 0; padding: 0; display: block; float: none;}
 .navbar_ .nav > li{position: relative; display: block; float: left; white-space: nowrap; background: none; margin-left: 30px;}
 .navbar_ .nav > li:first-child{margin-left: 0;}
-.navbar_ .nav > li > a{display: block; text-decoration: none; background: none; font-family: 'Fjalla One'; font-weight: 400; font-size: 18px; line-height: 50px; color: #443f2e; text-shadow:none; padding: 0; border: none; margin: 0; text-align: left; position: relative; z-index: 2; text-transform: uppercase; letter-spacing: 0px;
+.navbar_ .nav > li > a{display: block; text-decoration: none; background: none; font-family: 'Fjalla One'; font-weight: 400; font-size: 18px; line-height: 50px; color:whitesmoke; text-shadow:none; padding: 0; border: none; margin: 0; text-align: left; position: relative; z-index: 2; text-transform: uppercase; letter-spacing: 0px;
 transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-transition: all 0.3s ease-out; -o-transition: all 0.3s ease-out;
 }
 .navbar_ .nav > li > a:before{display: none;
@@ -576,3 +576,15 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 
 }
+
+
+/*My style*/
+.logo
+{
+    width: 40%;
+}
+.footer_logo
+{
+    width: 75%;
+}
+
