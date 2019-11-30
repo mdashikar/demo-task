@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>LAC Scanner</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1 , shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* set right icon */
+    .set-right-icon {
+      position: absolute;
+      left: 0;
+      margin-top: -7%;
+    }
+
+    /* set left icon */
+    .set-left-icon {
+      position: absolute;
+      right: 0;
+      margin-top: -7%;
+    }
+
+    /* Style the top navigation bar */
+    .topnav {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    /* Style the topnav links */
+    .topnav a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    /* Change color on hover */
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    /* Style the content */
+    .content {
+      /* background-color: #ddd; */
+      padding: 10px;
+      text-align: center;
+      align: center;
+    }
+
+    /* Style the footer */
+    .footer {
+      background-color: #f1f1f1;
+      padding: 10px;
+      text-align: center;
+      align: center;
+    }
+
+    .mask {
+
+      position: relative;
+      top: 0px;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      max-width: 250px;
+      text-align: center;
+      align: center;
+      display: inline-block;
+
+      /* //left: 43.5%;
+//left: 40%;
+//max-width: 720px;
+//height: 250;
+//width: auto;
+
+  //background-image: url(imageurl); */
+      background-position: 50% 0px;
+      background-size: auto 250px;
+      background-repeat: no-repeat;
+    }
+
+    .mask .mask_overlay {
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      width: 100%;
+      overflow: hidden;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+      text-align: center;
+      align: center;
+      /* //	display: inline-block;
+	
+//  width: auto;
+//	height: 100%;   
+//	right: 0px;
+//	left: 0px; */
+
+      background-image: url($800000114$);
+      background-position: 50% 0px;
+      background-size: auto 250px;
+      background-repeat: no-repeat;
+    }
+
+    .mask .mask_handle {
+      cursor: pointer;
+      position: absolute;
+      /* //  display: inline-block; */
+      right: 0;
+      bottom: 0;
+      height: 10px;
+      border: none;
+      background-color: transparent;
+      width: 100%;
+      text-align: center;
+      align: center;
+      background: linear-gradient(to bottom,
+          transparent 0%,
+          transparent calc(50% - 3px),
+          black calc(50% - 3px),
+          black calc(50% + 2px),
+          transparent calc(50% + 2px),
+          transparent 100%);
+
+      /* //   background: black;
+//  top: 0; */
+    }
+
+    .mask .mask_handle span {
+      background-color: #000000;
+      color: #ffffff;
+      text-align: center;
+      align: center;
+    }
+
+    .mask .mask_handle span:before {
+      margin: 0 0 0 0;
+      text-align: center;
+      align: center;
+    }
+
+    #container {
+      display: block;
+      position: absolute;
+      height: 202px;
+      width: 250px;
+      /* border: solid 1px red; */
+      border: none;
+      background-color: transparent;
+      background: transparent;
+      /*  left: 0; */
+      bottom: 0;
+      text-align: center;
+      align: center;
+    }
+
+    #version {
+      position: absolute;
+      background-color: transparent;
+      background: transparent;
+      left: 0;
+      bottom: 0;
+      text-align: left;
+      align: left;
+    }
+
+    .button {
+      /* //  background-color: #4CAF50; Green */
+      /* //  border: none;
+ // color: white; */
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .btnsearch {
+      background-color: #29a5d6;
+      color: white;
+      /* // height:200px; */
+      width: 150px;
+      border-color: #29a5d6;
+
+      /* // padding: 15px 32px; */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 75px;
+      height: 50px;
+    }
+
+    /* Blue */
+
+    .btnsearch:hover {
+      background-color: #046e96;
+      /* //color: #046e96; */
+      border-color: #046e96;
+    }
+
+    .btnnew {
+      background-color: #36ba2f;
+      color: white;
+      /* // height:200px; */
+      width: 150px;
+      border-color: #36ba2f;
+
+      /* // padding: 15px 32px; */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 75px;
+      height: 50px;
+    }
+
+    /* Blue */
+
+    .btnnew:hover {
+      background-color: #0b8005;
+      /* //color: #0B8005; */
+      border-color: #0b8005;
+    }
+
+    .button3 {
+      background-color: #f44336;
+      color: white;
+    }
+
+    /* Red */
+
+    .button4 {
+      background-color: #e7e7e7;
+      color: black;
+    }
+
+    /* Gray */
+
+    .button5 {
+      background-color: #555555;
+      color: white;
+    }
+
+    /* Black */
+
+    .btncancel {
+      background-color: white;
+      color: #ea553f;
+      /* // height:200px;
+	//width:150px; */
+      border-color: #ea553f;
+
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 150px;
+    }
+
+    .btncancel:hover {
+      /* // background-color: yellow; */
+      color: #4798ed;
+      border-color: #4798ed;
+    }
+
+    .btnsubmit {
+      background-color: #ea553f;
+      color: white;
+      /* // height:200px;
+	//width:150px; */
+
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 150px;
+    }
+
+    .btnsubmit:hover {
+      background-color: #e02a0f;
+      /* //  color: #e02a0f;
+	// border-color: #e02a0f; */
+    }
+  </style>
+
+
+</head>
+
+<body onload="ol()">
+  <!--
+<div class="topnav">
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+</div>
+
+  -->
+
+  <div class="content" align="center">
+    <!--  <h2>LAC Scanner</h2>  
+     -->
+
+    <div align="center" class="mask" id="masksection">
+      <!-- 	<div align="center" class="mask_overlay"></div>		 -->
+
+      <div align="center">
+        <p id="version"></p>
+      </div>
+
+      <div id="container">
+        <button id="slider" class="mask_handle">
+
+          <i class="fa fa-arrow-right fa-2x set-right-icon" aria-hidden="true"></i>
+          <i class="fa  fa-arrow-left fa-2x set-left-icon" aria-hidden="true"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="footer" align="center">
+    <p>
+      Full Count: <input type="number" id="fullcount" style="width: 4em" />
+
+      <button class="btnsearch" onclick="fullCountLess()">-</button>
+      <button class="btnnew" onclick="fullCountMore()">+</button>
+      <br />
+
+      <input class="btncancel" type="submit" value="Cancel" onclick="cancelFunction()" />
+      <input class="btnsubmit" type="submit" value="Save" onclick="saveFunction()" />
+    </p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+  <script>
+    /*!
+     * jQuery UI Touch Punch 0.2.3
+     *
+     * Copyright 2011–2014, Dave Furfero
+     * Dual licensed under the MIT or GPL Version 2 licenses.
+     *
+     * Depends:
+     *  jquery.ui.widget.js
+     *  jquery.ui.mouse.js
+     */
+    ! function (a) {
+      function f(a, b) {
+        if (!(a.originalEvent.touches.length > 1)) {
+          a.preventDefault();
+          var c = a.originalEvent.changedTouches[0],
+            d = document.createEvent("MouseEvents");
+          d.initMouseEvent(b, !0, !0, window, 1, c.screenX, c.screenY, c.clientX, c.clientY, !1, !1, !1, !1, 0, null), a
+            .target.dispatchEvent(d)
+        }
+      }
+      if (a.support.touch = "ontouchend" in document, a.support.touch) {
+        var e, b = a.ui.mouse.prototype,
+          c = b._mouseInit,
+          d = b._mouseDestroy;
+        b._touchStart = function (a) {
+          var b = this;
+          !e && b._mouseCapture(a.originalEvent.changedTouches[0]) && (e = !0, b._touchMoved = !1, f(a, "mouseover"),
+            f(a, "mousemove"), f(a, "mousedown"))
+        }, b._touchMove = function (a) {
+          e && (this._touchMoved = !0, f(a, "mousemove"))
+        }, b._touchEnd = function (a) {
+          e && (f(a, "mouseup"), f(a, "mouseout"), this._touchMoved || f(a, "click"), e = !1)
+        }, b._mouseInit = function () {
+          var b = this;
+          b.element.bind({
+            touchstart: a.proxy(b, "_touchStart"),
+            touchmove: a.proxy(b, "_touchMove"),
+            touchend: a.proxy(b, "_touchEnd")
+          }), c.call(b)
+        }, b._mouseDestroy = function () {
+          var b = this;
+          b.element.unbind({
+            touchstart: a.proxy(b, "_touchStart"),
+            touchmove: a.proxy(b, "_touchMove"),
+            touchend: a.proxy(b, "_touchEnd")
+          }), d.call(b)
+        }
+      }
+    }(jQuery);
+  </script>
+
+  </script>
+  <script>
+    function ol() {
+      document.getElementById("version").innerHTML = "0%";
+      $("#version").css("top", 240 - 30);
+      document.getElementById("fullcount").value = 0;
+      console.log("Load Function (ol)");
+
+      var paramurl = "$800000114$";
+      var imageurl = "url($800000114$)";
+
+      var elem = document.getElementById("masksection");
+
+      if (paramurl == "") {
+        console.log("no image, using default image");
+        //imageurl="https://server.liquorauditcontrol.com/arsys/report/images/ProductImages/defaultproductimage.jpg";
+        elem.style.backgroundImage =
+          "url('https://server.liquorauditcontrol.com/arsys/report/images/ProductImages/defaultproductimage.jpg')";
+      } else {
+        //the following line has been commented out and replaced by a static image for development purposes
+        // fetchStatus( paramurl )
+        elem.style.backgroundImage =
+          "url('https://server.liquorauditcontrol.com/arsys/report/images/ProductImages/IDGAACMCFNRLCAPOYS8JPOB89W1HX3.JPG')";
+      }
+
+      function fetchStatus(address) {
+        var client = new XMLHttpRequest();
+        client.onload = function () {
+          // in case of network errors this might not give reliable results
+          returnStatus(this.status);
+        };
+        client.open("HEAD", address, true);
+        client.send();
+      }
+
+      function returnStatus(status) {
+        if (status === 200) {
+          console.log("file exists!: " + paramurl);
+          //imageurl=paramurl;
+          elem.style.backgroundImage = imageurl;
+        } else {
+          console.log(
+            "file does not exist! status: " + status + " " + paramurl
+          );
+          //imageurl="https://server.liquorauditcontrol.com/arsys/report/images/ProductImages/defaultproductimage.jpg";
+          elem.style.backgroundImage =
+            "url('https://server.liquorauditcontrol.com/arsys/report/images/ProductImages/defaultproductimage.jpg')";
+        }
+      }
+
+      if (parent) {
+        parent.window.MyBroker = new(function () {
+          var curwin = window;
+          var par = parent;
+
+          this.SendSavedForm = function (data, data1) {
+            if (data1 === "") {
+              console.log("running ARProcessEvent for Cancelled");
+              //	 parent.F(800008080).S((new CharType(data)));
+              //	var WIN = parent.getCurrentWindowID_NS(); // Grab the parent windowID, you can hard code this to 0
+              //	parent.F(0,536870973).S(data);
+              //	parent.F(0,536870974).S(data1);
+
+              parent.arInvokeGuide(
+                "0",
+                "lac",
+                "BEV:Inventory Scanner Cancel Guide"
+              );
+
+              //	par.ARProcessEvent.Add(0,data, data,'source_window');
+            } else {
+              console.log(
+                "running ARProcessEvent for Saved: " + data + " " + data1
+              );
+              //	 parent.F(800008080).S((new CharType(data)));
+              //	var WIN = parent.getCurrentWindowID_NS(); // Grab the parent windowID, you can hard code this to 0
+
+              parent.F(0, 536870973).S(data);
+              parent.F(0, 536870974).S(data1);
+
+              parent.arInvokeGuide(
+                "0",
+                "lac",
+                "BEV:Inventory Scanner Counter Guide"
+              );
+
+              //	par.ARProcessEvent.Add(0,data, data,'source_window');
+            }
+          };
+
+          this.SendEventToField = function (eventtype, eventtype1) {
+            eventtype = eventtype.substr(1);
+            console.log(eventtype);
+
+            var partsArray = eventtype.split(",");
+
+            console.log(partsArray);
+            console.log(eventtype1);
+
+            create_table(partsArray);
+          };
+        })();
+      }
+    }
+
+    function handleEvent(eventtype, eventtype1) {
+      var textEle = document.getElementById("textid");
+      var textEle1 = document.getElementById("textid1");
+      textEle.value = eventtype;
+      textEle1.value = eventtype1;
+    }
+
+    function sendEvent(operation, text, text1) {
+      //console.log("sendEvent: " + text + " and " + text1);
+      // et=text;
+
+      if ((operation = "Saved")) {
+        parent.window.MyBroker.SendSavedForm(text, text1);
+      } else {
+        parent.window.MyBroker.SendCancelledForm();
+      }
+    }
+
+    function create_table(data) {
+      var head = [
+        "Product_Name",
+        "Previous_Count_Display",
+        "Current_Count_DIsplay",
+        "",
+        "Units_Used_Display",
+        "Units_Sold",
+        "Variance",
+        "Request_ID"
+      ];
+      var col_title = [
+        "Product Name",
+        "Previous Count",
+        "Current Count",
+        "",
+        "Units Used",
+        "Units Sold",
+        "Variance"
+      ];
+    }
+
+    function loadFunction() {
+      document.getElementById("version").innerHTML = "0.00%";
+      $("#version").css("top", 240 - 30);
+      document.getElementById("fullcount").value = 0;
+      console.log("Load Function");
+    }
+
+    function saveFunction() {
+      var inputF = document.getElementById("fullcount");
+      var inputC = document.getElementById("version");
+
+      var inputFI = parseInt(inputF.value);
+      var inputCI = parseFloat(inputC.innerHTML).toFixed(2);
+
+      console.log(
+        "Saved: Full Count " + inputFI + " and Open Count " + inputCI
+      );
+      sendEvent("Saved", inputFI, inputCI);
+    }
+
+    function cancelFunction() {
+      //var inputF = document.getElementById("fullcount");
+      //var inputC = document.getElementById("version");
+
+      //var inputFI = parseInt(inputF.value);
+      //var inputCI = parseFloat(inputC.innerHTML).toFixed(2);
+
+      console.log("Cancelled");
+      sendEvent("Cancelled", "", "");
+    }
+
+    function fullCountMore() {
+      //alert("Add");
+      var inputF = document.getElementById("fullcount");
+      var inputI = parseInt(inputF.value);
+      inputF.value = inputI + 1;
+
+      //	saveFunction()
+    }
+
+    function fullCountLess() {
+      //alert("Subtract");
+
+      var inputF = document.getElementById("fullcount");
+      var inputI = parseInt(inputF.value);
+      inputF.value = inputI - 1;
+
+      //	saveFunction()
+    }
+  </script>
+
+  <script>
+    $(".mask_overlay").css("height", $(".mask_handle").css("left"));
+    $(".mask_handle").click(function (e) {
+      e.preventDefault();
+    });
+
+    $(".mask_handle").draggable({
+      addClasses: true,
+      cancel: false,
+      classes: {
+        "ui-draggable": "highlight"
+      },
+      containment: "parent",
+      axis: "y",
+      drag: function (event, ui) {
+        y_position = $(this).css("top");
+        $("#version").css("color", "#ea553f");
+
+        new_y_position = y_position.replace("px", "");
+        y_position = parseInt(new_y_position);
+
+        t_position = y_position + 48;
+
+        //	$('.mask_overlay').css('height',t_position);
+        $("#version").css("top", t_position - 30);
+        // console.log(y_position);
+
+        document.getElementById("version").innerHTML =
+          (((192 - y_position) / 192) * 100).toFixed(0) + "%";
+        // document.getElementById("version").innerHTML = y_position;
+        //	$('#version').css('color',"black");
+
+        //	saveFunction()
+      }
+    });
+    $('.slider').draggable();
+  </script>
+
+  <script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+      output.innerHTML = this.value;
+    }
+
+    var range = $('.input-range'),
+      value = $('.range-value');
+
+    value.html(range.attr('value'));
+
+    range.on('input', function () {
+      value.html(this.value);
+    });
+  </script>
+</body>
+
+</html>
